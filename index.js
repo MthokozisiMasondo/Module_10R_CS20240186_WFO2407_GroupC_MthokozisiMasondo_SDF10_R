@@ -1,10 +1,5 @@
-/*
-Challenge:
-Make it so that when you click the 'Add to cart' button, whatever is written in the input field should be console logged.
-*/
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"
+import { getDatabase, ref } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://playground-c7d30-default-rtdb.asia-southeast1.firebasedatabase.app/"
@@ -16,11 +11,22 @@ const shoppingListInDB = ref(database, "shoppingList")
 
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
+const shoppingListEl = document.getElementById("shopping-list")
 
 addButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
 
-    Push(shoppingListInDB, inputValue)
-    
-    console.log(inputValue)
+    push(shoppingListInDB, inputValue)
+
+    clearInputFieldEl()
+
+    appendItemToShoppingListEl(inputValue)
 })
+
+function clearInputFieldEl() {
+    inputFieldEl.value = ""
+}
+
+function appendItemToShoppingListEl(itemValue) {
+    shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+}
